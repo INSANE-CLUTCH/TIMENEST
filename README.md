@@ -1,2 +1,2 @@
 # Timenest
-A more advanced alternative to Google Calendar
+A more advanced alternative to Google Calendar.
