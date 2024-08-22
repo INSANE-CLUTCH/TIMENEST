@@ -148,7 +148,7 @@ class Calender:
     
 class Calender_with_userpass(Calender):
     def __new__(cls, self, username, password):
-        self.user = mongo_client.find_one('user', {'UserName':username, 'Password': password})
+        self.user = mongo_client.find_one('users', {'UserName':username, 'Password': password})
         userid = self.user['UserID']
         if userid not in cls._instances:
             instance = super(Calender_with_userid, cls).__new__(cls)
@@ -157,7 +157,7 @@ class Calender_with_userpass(Calender):
 
     def __init__(self, username, password):
         if not hasattr(self, 'initialized'):
-            list_of_task = mongo_client.find(collection_name='task', filter={'UserID':self.user['UserID']})
+            list_of_task = mongo_client.find(collection_name='tasks', filter={'UserID':self.user['UserID']})
             self.avl_tree_task = AVLTree()
             for task in list_of_task:
                 self.avl_tree_task.insert(task)
@@ -171,6 +171,6 @@ class Calender_with_userid(Calender):
 
     def __init__(self, userid):
         # if not hasattr(self, 'initialized'):
-        self.user = mongo_client.find_one('user', {"UserID":userid})
-        self.list_of_task = mongo_client.find(collection_name='task', filter={'UserID': userid})
+        self.user = mongo_client.find_one('users', {"UserID":userid})
+        self.list_of_task = mongo_client.find(collection_name='tasks', filter={'UserID': userid})
         self.initialized = True
