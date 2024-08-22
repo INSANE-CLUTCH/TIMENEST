@@ -1,6 +1,6 @@
 from database.mongodb import MongoManager
 from flask import Flask, request, jsonify, render_template
-from backend.Backend import Calender
+from backend.Calender import Calender
 
 app = Flask(__name__)
 
