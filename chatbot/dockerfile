@@ -1,0 +1,18 @@
+FROM python:3.10-slim
+
+RUN apt-get update && apt-get install -y curl unzip
+
+RUN curl -s https://ollama.com/install.sh | bash
+
+WORKDIR /app
+
+COPY /latest /root/.ollama/models/manifests/registry.ollama.ai/library/timenest
+
+COPY . .
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 7860
+
+CMD ["sh", "-c", "ollama serve &khangpt python chatbot.py"]

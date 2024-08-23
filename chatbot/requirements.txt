@@ -1,0 +1,4 @@
+gradio
+pynvml
+langchain_community
+langchain
