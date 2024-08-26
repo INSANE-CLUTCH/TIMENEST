@@ -185,10 +185,11 @@ data=  [
       "Subtasks": [],
       "Notes": []
     }
+
 ]
 
 
 mongo_client.insert_many(
-    collection_name='task',
+    collection_name='tasks',
     data=data
 )

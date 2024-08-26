@@ -7,8 +7,8 @@ from backend.Meeting import *
 # group = mongo_client.find_one(collection_name='group', filter = {"GroupID":123})
 # print(group["Users"])
 
-client = Meeting(123)
-client.find_busy_time(0)
+client = Meeting(65416200)
+client.find_busy_time(1)
 
 # print(datetime(2023,3,2))
 
