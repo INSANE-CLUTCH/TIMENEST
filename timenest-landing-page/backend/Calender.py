@@ -166,6 +166,7 @@ class AVLTree:
         self.root = self._delete(self.root, deleted_task)
         
 class Calender_with_userpass():
+    list_of_query = {"add": [], "delete": []}
     def __init__(self, username, password):
         user = mongo_client.find_one('users', {'UserName':username, 'Password': password})
         self.list_of_task = mongo_client.find(collection_name='tasks', filter={'UserID': user['UserID']})
@@ -180,7 +181,12 @@ class Calender_with_userpass():
     
     def add_task(self, new_task):
         self.avl_tree_task.insert(new_task)
+        mongo_client.insert_one("tasks", new_task)
         
+    def delete_task(self, deleted_task):
+        self.avl_tree_task.delete_task(deleted_task)
+        mongo_client.delete_many(collection_name= "tasks", filter ={"TaskID": deleted_task["TaskID"]})
+    
     #Đánh giá hiệu suất trong một ngày
     def _day_eval(self, year, month, day):
         target_date = datetime(year, month, day)
