@@ -18,7 +18,7 @@
             <div class="h-col-1">
                 <img id="logo" src="/static/TIMENEST-05 1 Black.svg" alt="timenest" style="height: 34px;">
                 <button class="menu" data-tooltip="Main menu" aria-label="button" role="button">
-                    <img src="/static/Vector.svg" alt="menu button" style="height: 24px">
+                    <img src="/static/Vector.svg" alt="menu button" style="height: 22px">
                 </button>
             </div>
             <div class="group-right">
@@ -66,6 +66,10 @@
                         </button>
                     </div>
                     <div class="tracker">
+                        <div class="progress-container">
+                            <span class="time-period"></span>
+                            <div class="progress-bar"></div>
+                        </div>
                     </div>
                     <div class="chatbot">
                         <div class="header">
@@ -137,6 +141,47 @@
                     }
                 });
             });
+
+            const tracker = document.querySelector('.tracker');
+            const progressBar = document.querySelector('.progress-bar');
+            const timePeriod = document.querySelector('.time-period');
+
+            // Sample data (you can replace this with real data)
+            const tasksData = {
+                week: 35,
+                month: 120,
+                total: 200
+            };
+
+            // Set initial progress
+            const progress = (tasksData.month / tasksData.total) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            let isShowingWeek = true;
+            function updateProgressInfo() {
+                if (isShowingWeek) {
+                    timePeriod.textContent = `Week (${tasksData.week})`;
+                } else {
+                    timePeriod.textContent = `Month (${tasksData.month})`;
+                }
+                isShowingWeek = !isShowingWeek;
+            }
+
+            tracker.addEventListener('mouseenter', () => {
+                updateProgressInfo();
+            });
+
+            tracker.addEventListener('mouseover', () => {
+                if (!timePeriod.style.opacity || timePeriod.style.opacity === '0') {
+                    updateProgressInfo();
+                }
+            });
+
+            setInterval(() => {
+                if (tracker.matches(':hover')) {
+                    updateProgressInfo();
+                }
+            }, 2000); // Switch between week and month data every 2 seconds while hovering
         </script>
     </body>
 </html>
