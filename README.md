@@ -1,19 +1,27 @@
+# Problem Statement
+
+# Our Solution
+
 # Backend and Infrastructure
 
 **Backend**: The system utilizes an AVL tree structure to query user tasks faster and more efficiently. The AVL tree, with its self-balancing properties, ensures that searching, adding, and deleting tasks all have a time complexity of O(log n), optimizing processing speed for user time management.
 
+
 **Database**: **MongoDB** (a NoSQL database) is used to optimize query time and store unstructured data such as tasks and user schedules. MongoDB’s flexible scaling and support for heterogeneous queries help ensure the chatbot operates smoothly and efficiently when providing real-time information.
 
-# Generative AI
+![Logo](https://raw.githubusercontent.com/INSANE-CLUTCH/TIMENEST/refs/heads/hz/Screenshot%202024-09-27%20015159.png)
 
-**AI**: The chatbot uses a large language model **LLM (Llama 70B)** combined with advanced techniques like **Retrieval-Augmented Generation (RAG)**, **Function Calling**, and **Semantic Search**. This combination allows the chatbot to focus on time management and provide accurate, up-to-date answers while minimizing hallucination (incorrect information generation).
 
----
+# Generative AI Base Model
+
+The chatbot uses a large language model **LLM (Llama 70B)** combined with advanced techniques like **Retrieval-Augmented Generation (RAG)**, **Function Calling**, and **Semantic Search**. This combination allows the chatbot to focus on time management and provide accurate, up-to-date answers while minimizing hallucination (incorrect information generation).
+
 
 # Retrieval-Augmented Generation (RAG)
 
 **Retrieval-Augmented Generation (RAG)** is a natural language processing (NLP) technique that combines the strengths of both retrieval-based and generative AI models. This technique allows the chatbot to search for information from external sources and use it to generate more natural and contextually relevant answers. The combination of these two models helps the chatbot not only rely on its internal knowledge base but also stay updated with new information, reducing the occurrence of outdated information and hallucination (generating incorrect information).
 
+![Logo](https://i.ytimg.com/vi/ctzDFIINSrI/maxresdefault.jpg)
 Steps to implement a RAG system include:
 
 1. **Retrieval**: The chatbot first retrieves relevant information from external data sources such as documents, websites, databases, or knowledge repositories. The retrieval process may use **Information Retrieval** models, which assess the semantic similarity of documents.
@@ -22,11 +30,15 @@ Steps to implement a RAG system include:
 
 3. **Fusion**: The final step combines the retrieved information with the generative model’s natural language capabilities to produce a comprehensive, easy-to-understand response.
 
-# Integrating Data Crawling into the System
-
+## Integrating Data Crawling into the System
 We have built a dataset by crawling multiple news sources online, including the latest articles related to time management, personal productivity, and effective work methods. This data helps the chatbot stay updated on external knowledge, focusing on specialized and specific content, providing users with high-value information.
 
-# Main Functions of the Chatbot
+
+
+# Chatbot Function Calling
+![Logo](https://raw.githubusercontent.com/INSANE-CLUTCH/TIMENEST/refs/heads/hz/function-calling.png)
+
+---
 
 ## Function 1: Asking Advice to Manage Time Better
 
@@ -40,14 +52,10 @@ The chatbot can connect directly to the user's database to retrieve information 
 
 We have developed a method for storing conditions specified by the user in the prompt and saving them into a file. This storage allows the chatbot to remember the user’s previous constraints and provide more relevant suggestions in the future.
 
-### Advanced Technique:
-
-To avoid reviewing similar conditions repeatedly, we use **Semantic Search** to identify and eliminate sentences with a similarity level above a certain threshold (threshold = 0.88).
+**Advanced Technique:**
+To avoid reviewing similar conditions repeatedly, we use **Semantic Search** to identify and eliminate sentences with a similarity level above a certain threshold.
 
 ## Function 4: Loading Constraints
 
 When the user requests suggestions or reschedules a task, the chatbot will utilize the previously saved constraints to provide appropriate recommendations. This helps the chatbot give more personalized responses, accurately meeting the user's needs based on the stored information.
 
----
-
-These techniques not only help improve the chatbot's accuracy and personalization but also extend its ability to handle complex and diverse user scenarios.
