@@ -1,0 +1,9 @@
+pymongo
+hashlib
+flask
+fastapi
+langchain
+langchain-community
+openai
+uvicorn
+pathlib
