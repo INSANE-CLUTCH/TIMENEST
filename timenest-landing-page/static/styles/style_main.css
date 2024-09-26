@@ -1,0 +1,338 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+/* Remove default margin */
+*{
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+list-style: none;
+}
+/* Set core root defaults */
+html:focus-within {
+scroll-behavior: smooth;
+}
+html {
+scroll-behavior: smooth;
+}
+html,
+body {
+height: 100%;
+}
+/* Set core body defaults */
+body {
+text-rendering: optimizeSpeed;
+line-height: 1.5;
+}
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+text-decoration-skip-ink: auto;
+}
+/* Make images easier to work with */
+img,
+picture,
+svg {
+max-width: 100%;
+display: block;
+}
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+html:focus-within {
+scroll-behavior: auto;
+}
+*,
+*::before,
+*::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+scroll-behavior: auto !important;
+}
+}
+/* Go */
+html {
+font-family: 'Poppins', sans-serif;
+text-size-adjust: 100%;
+}
+body {
+background-color: #A2D2FF;
+height: 100vh;
+overflow: hidden;
+position: relative;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+button {
+cursor: pointer;
+align-items: center;
+justify-content: center;
+}
+.h__container {
+margin-top: 0.5rem;
+padding: 1rem;
+height: 40px;
+max-height: 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+.h-col-1 {
+display: flex;
+align-items: center;
+gap: 1rem;
+flex-basis: 20%;
+}
+.menu {
+margin-top: 3px;
+padding-right: 2rem;
+border: none;
+background-color: transparent;
+}
+.group-right {
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-basis: 80%;
+}
+.undo-redo {
+padding: 1rem;
+margin-top: 7px;
+}
+.redo {
+margin-left: 1rem;
+}
+.undo, .redo {
+border: none;
+background-color: transparent;
+}
+.switch {
+border: none;
+background-color: transparent
+}
+.group-right p {
+font-size: 20px;
+font-weight: 500;
+}
+/* sidebar */
+.main {
+    padding: 1rem;
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 40px); /* Subtract header height */
+    overflow: hidden;
+}
+
+.sidebar {
+    flex: 0 0 20%; /* Fixed width of 20% */
+    max-width: 20%; /* Ensure it doesn't grow beyond 20% */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+    overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
+}
+
+.sidebar-content__wrapper1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+.short-cut1 {
+width: 100%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.sc-1 {
+width: 30%;
+height: 100px;
+align-items: center;
+justify-content: center;
+display: flex;
+border-radius: 17px;
+background-color: rgba(0,0,0,0.15);
+border: none;
+transition: background-color 0.3s ease;
+}
+.sc-1:hover {
+background-color: rgba(0,0,0,0.2);
+}
+.manage {
+font-size: 20px;
+font-weight: 500;
+width: 100%;
+border-radius: 20px;
+background-color: rgba(0,0,0,0.15);
+border: none;
+height: 65px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.manage:hover {
+background-color: rgba(0,0,0,0.2);
+transform: scale(1.02);
+}
+.div-create {
+width: 100%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 1rem;
+}
+.create {
+font-size: 24px;
+font-weight: 600;
+color: white;
+width: 100%;
+display: flex;
+padding: 1rem;
+height: 100px;
+border-radius: 20px;
+background-color: #4361ee;
+border: none;
+gap: 1rem;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+transition: transform 0.3s ease;
+}
+.create:hover {
+transform: scale(1.02);
+}
+.create-text {
+display: flex;
+align-items: center;
+justify-content: end;
+}
+.tracker {
+width: 100%;
+display: flex;
+gap: 1rem;
+background-color: #4361ee;
+height: 40px;
+border-radius: 20px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+transition: transform 0.3s ease;
+}
+.tracker:hover {
+transform: scale(1.02);
+}
+
+/* ... (previous styles remain the same) ... */
+
+.chatbot {
+    width: 100%;
+    margin-bottom: 1rem;
+    height: 62vh;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: box-shadow 0.3s ease;
+}
+
+.chatbot:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4361ee;
+    padding: 0.8rem;
+}
+
+.chat-window {
+    margin-bottom: 0.5rem;
+    width: 90%;
+    height: 82%;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.bot-message, .user-message {
+    max-width: 80%;
+    margin-bottom: 0.5rem;
+    word-wrap: break-word;
+}
+
+.bot-message {
+    align-self: flex-start;
+}
+
+.user-message {
+    align-self: flex-end;
+}
+
+.bot-message p, .user-message p {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 16px;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.bot-message p {
+    background-color: #dee2e6;
+    border-radius: 15px 15px 15px 0;
+}
+
+.user-message p {
+    background-color: #4361ee;
+    color: white;
+    border-radius: 15px 15px 0 15px;
+}
+
+.input-area {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.input-area input {
+    width: 80%;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    padding: 0 1rem;
+    font-size: 16px;
+    background-color: #dee2e6;
+}
+
+.input-area button {
+    padding: 1.1rem;
+    background-color: #4361ee;
+    border: none;
+    border-radius: 15px;
+}
+
+.calendar-zone {
+    flex: 1; /* Take up remaining space */
+    display: flex;
+    justify-content: end;
+    background-color: #E1F1FF;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-left: 1rem;
+    height: 100%;
+    overflow-y: auto;
+}
