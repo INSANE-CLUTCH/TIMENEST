@@ -178,7 +178,6 @@ font-weight: 500;
     align-items: center;
     gap: 1rem;
     height: 100%;
-    overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
 }
 
 .sidebar-content__wrapper1 {
@@ -357,11 +356,11 @@ justify-content: end;
 .calendar-zone {
     flex: 1; /* Take up remaining space */
     display: flex;
-    justify-content: end;
-    background-color: #E1F1FF;
-    border-radius: 15px;
-    padding: 1rem;
+    flex-direction: column;
     margin-left: 1rem;
+    background-color: #E1F1FF;
+    border-radius: 20px;
+    padding: 1rem;
     height: 93.5%;
     overflow-y: auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -410,4 +409,114 @@ justify-content: end;
 }
 .tracker:hover .time-period {
     opacity: 1;
+}
+
+/* .bottom {
+    margin-bottom: 0;
+    width: 100%;
+    gap: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+} */
+
+.calendar-zone-top {
+    width: 100%;
+    height: 180px;
+    background-color: #000000;
+}
+
+.Calender {
+    height: 820px;
+    grid-area: Calender;
+    display: grid;
+    grid-template-areas: 
+        "blank weekview_date_header"
+        "time_interval time_interval";
+    grid-template-columns: 1fr 14fr;
+    grid-template-rows: auto 1fr;
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: none;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.weekview_date_header {
+    grid-area: weekview_date_header;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.time_interval{
+    border-top: 0px solid;
+    grid-area: time_interval;
+    height: 650px;  
+    display: grid;  
+    grid-template-columns: 1fr 14fr;
+    overflow-y: scroll;
+}
+
+.time{
+    border-right: 1px solid #ddd;
+    .blank_time{
+        height: 20px;
+    }
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(96,1fr);
+    height: 650px;
+}
+
+.time-slot {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
+    height: 40px; 
+}
+
+.time-slot :nth-child(7n) {
+    border-right: none;
+}
+
+.time p {
+    height: 40px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.date_of_sun, .date_of_mon, .date_of_tue, .date_of_wed, .date_of_thu, .date_of_fri, .date_of_sat{
+    font-size: 35px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.day_of_week{
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: #333;
+    color: white;
+    text-align: center;
+
+}
+
+@media (max-width:768px) {
+    body {
+        grid-template-areas:
+            "header"
+            "Calender"
+            "footer";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
 }

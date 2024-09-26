@@ -41,3 +41,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const timeInterval = document.querySelector('.time_interval .time');
+    const timeSlots = document.querySelector('.time-slots');
+
+    const timeblank1 = document.createElement('div');
+    timeblank1.classList.add('blank_time');
+    timeInterval.appendChild(timeblank1);
+
+    for (let i = 0; i < 96; i+=2) {
+        const hours = Math.floor(i / 4);
+        const minutes = (i % 4) * 15;
+        const timeElement = document.createElement('p');
+        if (i % 4 === 0) {
+            timeElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        }
+        timeInterval.appendChild(timeElement);
+        for (let j = 0; j < 7; j++) {
+            const timeSlot = document.createElement('div');
+            timeSlot.classList.add('time-slot');
+            timeSlots.appendChild(timeSlot);
+        }
+    }
+    const timeblank2 = document.createElement('div');
+    timeblank2.classList.add('blank_time');
+    timeInterval.appendChild(timeblank2);
+
+    const timeElement = document.createElement('p');
+    for (let j = 0; j < 7; j++) {
+        const timeSlot = document.createElement('div');
+        timeSlot.classList.add('time-slot');
+        timeSlots.appendChild(timeSlot);
+    }
+
+});

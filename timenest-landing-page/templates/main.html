@@ -11,6 +11,7 @@
             integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="/static/styles/style_main.css" />
+        <script src="script_main.js" defer></script>
         <title>Timenest</title>
     </head>
     <body>
@@ -91,20 +92,90 @@
                 </div>
             </div>
             <div class="calendar-zone">
-                <div class="container_calendar cc-tran container__calendar-sb-active">
-                    <div class="yearview hide-view"></div>
-                    <div class="monthview hide-view"></div>
-                    <div class="weekview ">
-                        <div class="weekview-top">
-                            <div></div>
-                            <div class="weekview-header">
-                            </div>
-                            <div class="weekview-grid">
-                            </div>
+                <div class="calendar-zone-top">
+                    <div class="today">
+                        <button class="btn-today"><p>Today</p></button>
+                    </div>
+                    <div class="day">
+                    </div>
+                    <div class="right">
+                        <div class="view"></div>
+                        <div class="search"></div>
+                    </div>
+                </div>
+                <section class="Calender">
+                    <div class = "blank"></div>
+                    <div class="weekview_date_header">
+                      <div class="Sunday">
+                        <div class="date">
+                          <p class="day_of_week">Sun</p>
+                          <br />
+                          <p class="date_of_sun">26</p>
                         </div>
-                    <div class="dayview hide-view"></div>
+                      </div>
+                      <div class="Monday">
+                        <div class="date">
+                          <p class="day_of_week">Mon</p>
+                          <br />
+                          <p class="date_of_mon">26</p>
+                        </div>
+                      </div>
+                      <div class="Tuesday">
+                        <div class="date">
+                          <p class="day_of_week">Tue</p>
+                          <br />
+                          <p class="date_of_tue">27</p>
+                        </div>
+                      </div>
+                      <div class="Wednesday">
+                        <div class="date">
+                          <p class="day_of_week">Wed</p>
+                          <br />
+                          <p class="date_of_wed">28</p>
+                        </div>
+                      </div>
+                      <div class="Thursday">
+                        <div class="date">
+                          <p class="day_of_week">Thu</p>
+                          <br />
+                          <p class="date_of_thu">29</p>
+                        </div>
+                      </div>
+                      <div class="Friday">
+                        <div class="date">
+                          <p class="day_of_week">Fri</p>
+                          <br />
+                          <p class="date_of_fri">30</p>
+                        </div>
+                      </div>
+                      <div class="Saturday">
+                        <div class="date">
+                          <p class="day_of_week">Sat</p>
+                          <br />
+                          <p class="date_of_sat">31</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="time_interval">
+                      <div class="time">
+                      </div>
+                      <div class="time-slots"></div>
+                    </div>
+                  </section>
                 </div>
             </div>
+
+            <!-- <div class="bottom">
+                <div class="option">
+                    <button class="option-button 1"><img src="/static/Add_round.svg"></button>
+                </div>
+                <div class="option">
+                    <button class="option-button 2"><img src="/static/S" aria-hidden="true"></i>.svg"></button>
+                </div>
+                <div class="option">
+                    <button class="option-button 3"><img src="/static/Group_fill.svg"></button>
+                </div>
+            </div> -->
         </main>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
