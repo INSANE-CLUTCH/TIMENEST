@@ -776,8 +776,7 @@ justify-content: end;
 .task {
     background-color: #4361ee;
     color: white;
-    padding: 5px;
-    border-radius: 3px;
+    padding: 5px 10px;
     font-weight: 600;
     overflow: hidden;
     word-wrap: break-word; /* Đảm bảo nội dung dài sẽ xuống dòng */
@@ -864,4 +863,36 @@ justify-content: end;
 
 .option button:hover {
     background-color: rgba(0,0,0,0.15);
+}
+
+.task {
+    position: relative; /* Ensure positioning context for child elements */ 
+    border: none; /* Optional: Add a border for visibility */
+    border-radius: 10px; /* Optional: Add rounded corners */
+}
+
+.delete-button {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 7px;
+    display: none; /* Hide the button by default */
+    position: absolute; /* Position it relative to the task */
+    top: 5px; /* Position it within the task */
+    right: 5px; /* Align to the right */
+}
+
+.task:hover .delete-button {
+    display: block; /* Show the button on hover */
+}
+
+.taskDescript {
+    font-weight: 500; /* Adjust this to your desired weight */
+    /* You can also add other styles if needed */
+    font-size: 16px; /* Optional: Adjust the font size *//* Optional: Change the text color */
+}
+
+.taskTime {
+    font-weight: 500; /* Adjust this to your desired weight */
+    /* You can also add other styles if needed */
+    font-size: 16px; /* Optional: Adjust the font size */
 }

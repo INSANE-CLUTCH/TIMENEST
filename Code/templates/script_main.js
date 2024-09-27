@@ -128,15 +128,31 @@ function formatDate(date) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get the current date (in this case, 27.09.2024)
-    const currentDate = new Date('2024-09-27');
+    const currentDate = new Date();
+
+    // Function to format date as "DD"
+    function formatDate(date) {
+        return date.getDate().toString().padStart(2, '0');
+    }
+
+    function getDayOfWeek(date) {
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        return daysOfWeek[date.getDay()];
+    }
 
     // Get the start of the centered week
     const weekStart = getStartOfCenteredWeek(currentDate);
 
+    //function to get the start of the centered week
+    function getStartOfCenteredWeek(date) {
+        const start = new Date(date);
+        start.setDate(start.getDate() - 3); // Move back 3 days to start from Tuesday
+        return start;
+    }
+
     // Update the calendar
     const dayElements = document.querySelectorAll('.calendar-day');
     const dayOfWeekElements = document.querySelectorAll('.day_of_week');
-    const daysOfWeek = ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'];
 
     dayElements.forEach((element, index) => {
         const date = new Date(weekStart);
@@ -148,11 +164,10 @@ document.addEventListener('DOMContentLoaded', function() {
             element.style.color = '#4361ee';
             element.style.fontWeight = 'bold';
         }
-    });
 
-    // Update the day names
-    dayOfWeekElements.forEach((element, index) => {
-        element.textContent = daysOfWeek[index];
+        // Update the day names (Mon, Tue, etc.) based on the correct date
+        const dayOfWeek = getDayOfWeek(date);
+        dayOfWeekElements[index].textContent = dayOfWeek;  // Correctly set the day name
     });
 
 });
@@ -160,8 +175,30 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const timeSlots = document.querySelector('.time-slots');
     const timeInterval = document.querySelector('.time_interval .time');
+    const modal = document.getElementById("createTaskModal");
+    const startTimeInput = document.getElementById('startTime');
+    const endTimeInput = document.getElementById('endTime');
+
+    // Initialize drag functionality
+    let isDragging = false;
+    let startSlot = null;
+    let endSlot = null;
 
     // Create time intervals and time slots
+    createTimeIntervalsAndSlots();
+
+    // Event Listeners
+    timeSlots.addEventListener('mousedown', onMouseDown);
+    timeSlots.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    document.getElementsByClassName("close-button")[0].onclick = closeModal;
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    };
+
+    // Functions for handling time slots
     function createTimeIntervalsAndSlots() {
         const timeblank1 = document.createElement('div');
         timeblank1.classList.add('blank_time');
@@ -172,14 +209,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const minutes = (i % 4) * 15;
             const timeElement = document.createElement('p');
             if (i % 4 === 0) {
-                timeElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                timeElement.textContent = formatTimeForDisplay(hours, minutes);
             }
             timeInterval.appendChild(timeElement);
-            
+
             for (let j = 0; j < 7; j++) {
                 const timeSlot = document.createElement('div');
                 timeSlot.classList.add('time-slot');
-                timeSlot.dataset.time = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                timeSlot.dataset.time = formatTimeForInput(hours, minutes);
                 timeSlot.dataset.day = j;
                 timeSlots.appendChild(timeSlot);
             }
@@ -190,37 +227,20 @@ document.addEventListener('DOMContentLoaded', function() {
         timeInterval.appendChild(timeblank2);
     }
 
-    createTimeIntervalsAndSlots();
+    function formatTimeForInput(hours, minutes) {
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
 
-    // Drag to create functionality
-    let isDragging = false;
-    let startSlot = null;
-    let endSlot = null;
+    function formatTimeForDisplay(hours, minutes) {
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
 
-    timeSlots.addEventListener('mousedown', function(e) {
-        if (e.target.classList.contains('time-slot')) {
-            isDragging = true;
-            startSlot = e.target;
-            highlightSlot(startSlot);
-        }
-    });
-
-    timeSlots.addEventListener('mousemove', function(e) {
-        if (isDragging && e.target.classList.contains('time-slot')) {
-            endSlot = e.target;
-            highlightRange(startSlot, endSlot);
-        }
-    });
-
-    document.addEventListener('mouseup', function() {
-        if (isDragging) {
-            isDragging = false;
-            if (startSlot && endSlot) {
-                createTask(startSlot, endSlot);
-            }
-            clearHighlight();
-        }
-    });
+    function getTimeFromSlot(slot) {
+        const slotIndex = Array.from(timeSlots.children).indexOf(slot);
+        const hours = Math.floor(slotIndex / 4);
+        const minutes = (slotIndex % 4) * 15;
+        return { hours, minutes };
+    }
 
     function highlightSlot(slot) {
         slot.classList.add('highlighted');
@@ -231,27 +251,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const slots = Array.from(timeSlots.children);
         const startIndex = slots.indexOf(start);
         const endIndex = slots.indexOf(end);
-        
-        let row1 = parseInt(startIndex / 7);
-        let col1 = startIndex - row1 * 7;
-        let row2 = parseInt(endIndex / 7);
-        let col2 = endIndex - row2 * 7;
-        
-        if(row1 > row2){
-            let temp = row2;
-            row2 = row1;
-            row1 = temp;
-        }
 
-        if(col1 > col2){
-            let temp = col2;
-            col2 = col1;
-            col1 = temp;
-        }
+        const [row1, row2] = [Math.floor(startIndex / 7), Math.floor(endIndex / 7)].sort((a, b) => a - b);
+        const [col1, col2] = [startIndex % 7, endIndex % 7].sort((a, b) => a - b);
 
         for (let i = row1; i <= row2; i++) {
-            for(let j = col1; j <= col2; j++){
-                slots[i*7+j].classList.add('highlighted');
+            for (let j = col1; j <= col2; j++) {
+                slots[i * 7 + j].classList.add('highlighted');
             }
         }
     }
@@ -260,61 +266,125 @@ document.addEventListener('DOMContentLoaded', function() {
         timeSlots.querySelectorAll('.highlighted').forEach(slot => slot.classList.remove('highlighted'));
     }
 
+    // Event handling functions
+    function onMouseDown(e) {
+        if (e.target.classList.contains('time-slot')) {
+            isDragging = true;
+            startSlot = e.target;
+            highlightSlot(startSlot);
+        }
+    }
 
+    function onMouseMove(e) {
+        if (isDragging && e.target.classList.contains('time-slot')) {
+            endSlot = e.target;
+            highlightRange(startSlot, endSlot);
+        }
+    }
 
-    function createTask(start, end) {
-        clearHighlight();
-        const modal = document.getElementById("createTaskModal");
+    function onMouseUp() {
+        if (isDragging) {
+            isDragging = false;
+            if (startSlot && endSlot) {
+                const startTime = getTimeFromSlot(startSlot);
+                const endTime = getTimeFromSlot(endSlot);
+
+                // Pre-fill the modal with the captured time
+                startTimeInput.value = formatTimeForInput(startTime.hours, startTime.minutes);
+                endTimeInput.value = formatTimeForInput(endTime.hours, endTime.minutes);
+
+                createTask();
+            }
+            clearHighlight();
+        }
+    }
+
+    // Modal functions
+    function closeModal() {
+        modal.classList.remove("show");
+    }
+
+    function createTask() {
         modal.classList.add("show");
-    
+
         document.getElementById("createTaskForm").onsubmit = function(e) {
             e.preventDefault();
-    
-            let task = document.createElement('div');
-            task.classList.add('task');
-    
-            let taskName = document.createElement('p');
-            taskName.classList.add('taskName');
-            taskName.textContent = document.getElementById('taskName').value;
-    
-            let taskDescript = document.createElement('p');
-            taskDescript.classList.add('taskDescript');
-            taskDescript.textContent = document.getElementById('taskDescription').value;
-    
-            let taskTime = document.createElement('p');
-            taskTime.classList.add('taskTime');
-            taskTime.textContent = `${document.getElementById('startTime').value} - ${document.getElementById('endTime').value}`;
-    
-            task.appendChild(taskName);
-            task.appendChild(taskDescript);
-            task.appendChild(taskTime);
-            task.backgroundColor = document.getElementById('taskColor').value;
-    
-            const startRect = start.getBoundingClientRect();
-            const endRect = end.getBoundingClientRect();
-            const timeSlotRect = timeSlots.getBoundingClientRect();
-    
-            task.style.position = 'absolute';
-            let most_left = Math.min(startRect.left, endRect.left);
-            let most_right = Math.max(startRect.right, endRect.right);
-            let most_top = Math.min(startRect.top, endRect.top);
-            let most_bottom = Math.max(startRect.bottom, endRect.bottom);
-    
-            task.style.left = `${most_left - timeSlotRect.left}px`;
-            task.style.top = `${most_top - timeSlotRect.top}px`;
-            task.style.width = `${most_right - most_left}px`;
-            task.style.height = `${most_bottom - most_top}px`;
-    
-            // Set the background color based on the selected task color
-            task.style.backgroundColor = document.getElementById('taskColor').value;
-    
-            timeSlots.appendChild(task);
-    
-            // Close the modal after creating the task
-            modal.classList.remove("show");
-    
-            // Reset the form
+            addTaskToCalendar();
+            closeModal();
             document.getElementById("createTaskForm").reset();
         };
     }
+
+    function addTaskToCalendar() {
+        const task = document.createElement('div');
+        task.classList.add('task');
+    
+        // Task Name
+        const taskName = document.createElement('p');
+        taskName.classList.add('taskName');
+        taskName.textContent = document.getElementById('taskName').value;
+    
+        // Task Description
+        const taskDescript = document.createElement('p');
+        taskDescript.classList.add('taskDescript');
+        taskDescript.textContent = document.getElementById('taskDescription').value;
+    
+        const startTime = new Date(startTimeInput.value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const endTime = new Date(endTimeInput.value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Task Time
+        const taskTime = document.createElement('p');
+        taskTime.classList.add('taskTime');
+        taskTime.textContent = `${startTime} - ${endTime}`;
+    
+        // Create Delete Button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+    
+        // Add event listener to delete the task
+        deleteButton.onclick = function() {
+            timeSlots.removeChild(task);
+        };
+    
+        // Append elements to the task
+        task.appendChild(taskName);
+        task.appendChild(taskDescript);
+        task.appendChild(taskTime);
+        task.appendChild(deleteButton);
+        task.style.backgroundColor = document.getElementById('taskColor').value;
+    
+        // Positioning the task
+        const startRect = startSlot.getBoundingClientRect();
+        const endRect = endSlot.getBoundingClientRect();
+        const timeSlotRect = timeSlots.getBoundingClientRect();
+    
+        task.style.position = 'absolute';
+        task.style.left = `${Math.min(startRect.left, endRect.left) - timeSlotRect.left}px`;
+        task.style.top = `${Math.min(startRect.top, endRect.top) - timeSlotRect.top}px`;
+        task.style.width = `${Math.max(startRect.right, endRect.right) - Math.min(startRect.left, endRect.left)}px`;
+        task.style.height = `${Math.max(startRect.bottom, endRect.bottom) - Math.min(startRect.top, endRect.top)}px`;
+    
+        // Append the task to time slots
+        timeSlots.appendChild(task);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get today's date
+    const currentDate = new Date();
+
+    // Function to format date as "DD.MM.YYYY"
+    function formatDate(date) {
+        const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with zero
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (0-based) and pad
+        const year = date.getFullYear(); // Get full year
+        return `${day}.${month}.${year}`; // Return formatted date
+    }
+
+    // Select the <p> element inside the .day div
+    const dayElement = document.querySelector('.day p');
+
+    // Set the text content to today's date
+    dayElement.textContent = formatDate(currentDate);
 });
