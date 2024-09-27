@@ -115,71 +115,86 @@
                     
                 </div>
             </div>
-            <div class="calendar-zone">
-                <div class="calendar-zone-top">
-                    <div class="today">
-                        <button class="btn-today"><p>Today</p></button>
-                    </div>
-                    <div class="day">
-                        <button><img src="/static/Expand_left.svg" style="width: 35px"></button>
-                        <button><img src="/static/Expand_right.svg" style="width: 32px"></button>
-                        <p>27.09.2024</p>
-                    </div>
-                    <div class="right">
-                        <div class="view">
-                            <p>Week</p>
-                            <button><img src="/static/fi-ss-caret-down.svg"></button>
+            <div class="right-component">
+                <div class="calendar-zone">
+                    <div class="calendar-zone-top">
+                        <div class="today">
+                            <button class="btn-today"><p>Today</p></button>
                         </div>
-                        <div class="search">
-                            <button class="s"><img src="/static/Date_range.svg" style="width: 45px"></button>
+                        <div class="day">
+                            <button><img src="/static/Expand_left.svg" style="width: 35px"></button>
+                            <button><img src="/static/Expand_right.svg" style="width: 32px"></button>
+                            <p>27.09.2024</p>
                         </div>
+                        <div class="right">
+                            <div class="view">
+                                <p>Week</p>
+                                <button><img src="/static/fi-ss-caret-down.svg"></button>
+                            </div>
+                            <div class="search">
+                                <button class="s"><img src="/static/Date_range.svg" style="width: 45px"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="Calender">
+                            <div class="Blank_part"></div>
+                            <div class="weekview_date_header">
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                                <div>
+                                    <p class="day_of_week"></p>
+                                    <p class="calendar-day"></p>
+                                </div>
+                            </div>
+                            <div class="time_interval">
+                                <div class="time">
+                                </div>
+                                <div class="time-slots"></div>
+                            </div> 
+                    </section>
+                </div>
+                <div class="bottom">
+                    <div class="option 1">
+                        <button class="bttn-option 1"><img src="/static/Add_round.svg"></button>
+                    </div>
+                    <div class="option 2">
+                        <button class="bttn-option 2"><img src="/static/Group_fill.svg"></button>
+                    </div>
+                    <div class="option 3">
+                        <button class="bttn-option 3"><img src="/static/Setting_alt_fill.svg"></button>
                     </div>
                 </div>
-                <section class="Calender">
-                        <div class="Blank_part"></div>
-                        <div class="weekview_date_header">
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                            <div>
-                                <p class="day_of_week"></p>
-                                <p class="calendar-day"></p>
-                            </div>
-                        </div>
-                        <div class="time_interval">
-                            <div class="time">
-                            </div>
-                            <div class="time-slots"></div>
-                        </div> 
-                </section>
+            </div>
         </main>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const chatWindow = document.querySelector('.chat-window');
                 const inputField = document.querySelector('.input-area input');
                 const sendButton = document.querySelector('.input-area button');
-            
+
+           
                 function addMessage(message, isUser = false) {
                     const messageDiv = document.createElement('div');
                     messageDiv.className = isUser ? 'user-message' : 'bot-message';
@@ -188,18 +203,60 @@
                     chatWindow.scrollTop = chatWindow.scrollHeight;
                 }
             
-                function handleUserInput() {
+                function addTypingIndicator() {
+                    const typingDiv = document.createElement('div');
+                    typingDiv.className = 'bot-message typing-indicator';
+                    typingDiv.innerHTML = '<div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+                    chatWindow.appendChild(typingDiv);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                }
+            
+                function removeTypingIndicator() {
+                    const typingIndicator = document.querySelector('.typing-indicator');
+                    if (typingIndicator) {
+                        typingIndicator.remove();
+                    }
+                }
+            
+ 
+                async function handleUserInput() {
                     const userMessage = inputField.value.trim();
                     if (userMessage) {
                         addMessage(userMessage, true);
                         inputField.value = '';
-                        // Here you would typically send the message to a backend for processing
-                        // For now, we'll just echo a simple response
-                        setTimeout(() => {
-                            addMessage("I've received your message: " + userMessage);
-                        }, 500);
+            
+                        // Add typing indicator
+                        addTypingIndicator();
+            
+                        try {
+                            const response = await fetch('http://10.1.16.121:8034/infer', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ input: userMessage })
+                            });
+            
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+            
+                            const data = await response.json();
+                            
+                            // Remove typing indicator before adding the bot's response
+                            removeTypingIndicator();
+                            addMessage(data.response);
+                        } catch (error) {
+                            console.error('Error:', error);
+                            
+                            // Remove typing indicator before adding the error message
+                            removeTypingIndicator();
+                            addMessage('Sorry, there was an error processing your message.');
+                        }
                     }
                 }
+            
+     
             
                 sendButton.addEventListener('click', handleUserInput);
             
