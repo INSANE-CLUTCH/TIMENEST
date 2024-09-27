@@ -59,13 +59,37 @@
                     </div>
                 
                     <div class="div-create">
-                        <button class="create" aria-label="button" role="button">
+                        <button class="create" id="createBtn" aria-label="button" role="button">
                             <img src="/static/fi-ss-add.svg" alt="plus" style="width: 55px">
-                            <div class="create-text">
-                                <p>Create</p>
+                            <div class="create-text">Create
                             </div>
                         </button>
                     </div>
+                    
+                    <div id="createTaskModal" class="createTaskModal">
+                        <div class="modal-content">
+                            <span class="close-button">&times;</span>
+                            <h2>Create New Task</h2>
+                            <form id="createTaskForm">
+                                <label for="taskName">Task Name:</label>
+                                <input type="text" id="taskName" name="taskName" required>
+                    
+                                <label for="taskDescription">Description:</label>
+                                <textarea id="taskDescription" name="taskDescription" rows="3"></textarea>
+                    
+                                <label for="startTime">Start Time:</label>
+                                <input type="datetime-local" id="startTime" name="startTime" required>
+                    
+                                <label for="endTime">End Time:</label>
+                                <input type="datetime-local" id="endTime" name="endTime" required>
+                                
+                                <label for="taskColor">Task Color:</label>
+            <input type="color" id="taskColor" name="taskColor" value="#4361ee">
+                                <button type="submit">Create Task</button>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="tracker">
                         <div class="progress-container">
                             <span class="time-period"></span>
@@ -99,8 +123,13 @@
                     <div class="day">
                     </div>
                     <div class="right">
-                        <div class="view"></div>
-                        <div class="search"></div>
+                        <div class="view">
+                            <p>Week</p>
+                            <button><img src="/static/fi-ss-caret-down.svg"></button>
+                        </div>
+                        <div class="search">
+                            <button class="s"><img src="/static/Date_range.svg" style="width: 45px"></button>
+                        </div>
                     </div>
                 </div>
                 <section class="Calender">

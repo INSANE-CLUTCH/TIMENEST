@@ -279,7 +279,7 @@ justify-content: end;
 
 .chat-window {
     margin-bottom: 0.5rem;
-    width: 90%;
+    width: 92%;
     height: 82%;
     background-color: #f8f9fa;
     border-radius: 20px;
@@ -323,7 +323,7 @@ justify-content: end;
 }
 
 .input-area {
-    width: 90%;
+    width: 92%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -421,14 +421,10 @@ justify-content: end;
     margin-top: 1rem;
 } */
 
-.calendar-zone-top {
-    width: 100%;
-    height: 180px;
-    background-color: #000000;
-}
+
 
 .Calender {
-    height: 820px;
+    height: 850px;
     grid-area: Calender;
     display: grid;
     grid-template-areas: 
@@ -452,7 +448,7 @@ justify-content: end;
 .time_interval{
     border-top: 0px solid;
     grid-area: time_interval;
-    height: 650px;  
+    height: 670px;  
     display: grid;  
     grid-template-columns: 1fr 14fr;
     overflow-y: scroll;
@@ -519,4 +515,263 @@ justify-content: end;
         grid-template-columns: 1fr;
         grid-template-rows: auto;
     }
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.time-slot {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    height: 30px; /* Adjust this value to change the height of each time slot */
+}
+
+.time-slot.highlighted {
+    background-color: rgba(67, 97, 238, 0.3);
+}
+
+.task {
+    background-color: #4361ee;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* Ensure the calendar takes up the full width of its container */
+.calendar-zone {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Styles for the time interval column */
+.time_interval .time {
+    display: flex;
+    flex-direction: column;
+}
+
+.time_interval .time p {
+    height: 30px; /* Should match the height of .time-slot */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.createTaskModal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.createTaskModal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.createTaskModal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* ... rest of the CSS remains the same ... */
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    padding-top: 8px;
+    margin-bottom: 20px;
+    color: #4361ee;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content label {
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.modal-content input,
+.modal-content textarea {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+}
+
+.modal-content button[type="submit"] {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4361ee;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #3148e6;
+}
+
+.modal-content input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.modal-content input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.modal-content input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.color-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.calendar-zone-top{
+    display: flex;
+    width: 100%;
+    height: 180px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-zone-top .today {
+    padding: 25px 55px;
+    border-radius: 20px;
+    background-color: #4361ee;
+}
+
+.btn-today {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.calendar-zone-top .day{
+    height: 85px;
+    width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #4361ee;
+}
+
+.calendar-zone-top .right {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.right .view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 85px;
+    width: 160px;
+    background-color: #4361ee;
+    border-radius: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+
+.right .view button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85px;  
+    width: 85px;
+    background-color: #4361ee;
+    border-radius: 20px;
+}
+
+.s {
+    background-color: transparent;
+    border: none;
 }
