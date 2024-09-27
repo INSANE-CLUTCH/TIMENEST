@@ -655,6 +655,7 @@ justify-content: end;
     height: 180px;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .calendar-zone-top .today {
