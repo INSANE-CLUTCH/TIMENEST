@@ -368,6 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Append the task to time slots
         timeSlots.appendChild(task);
     }
+    
 });
 
 document.addEventListener('DOMContentLoaded', function() {
