@@ -1,0 +1,95 @@
+{
+    "username": "hug",
+    "tasks": [
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "Complete Report",
+            "taskDescription": "Finish the quarterly report by end of the day.",
+            "startTime": "2024-09-27T10:00:00Z",
+            "endTime": "2024-09-27T12:00:00Z",
+            "taskcolor": "#FF5733"
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "hfdsgfsfdg",
+            "taskDescription": "sdgsdgfSEWFD",
+            "startTime": "2024-09-28T13:18",
+            "endTime": "2024-09-28T23:19",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "fasdfasdf",
+            "taskDescription": "asdfasdfasfd",
+            "startTime": "2024-09-09T23:25",
+            "endTime": "2024-09-18T23:25",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "uqhewurhqwer",
+            "taskDescription": "nqruweurqwueru",
+            "startTime": "2024-09-11T23:28",
+            "endTime": "2024-09-11T12:28",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "iwjiqweir",
+            "taskDescription": "qnwnisdfa",
+            "startTime": "2024-09-28T23:28",
+            "endTime": "2024-09-28T12:28",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "hit the gym",
+            "taskDescription": "at peter's house",
+            "startTime": "2024-09-18T23:37",
+            "endTime": "2024-09-18T12:37",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "go swimming",
+            "taskDescription": "at Hồ Tây Hà Nội",
+            "startTime": "2024-09-16T23:44",
+            "endTime": "2024-09-16T12:44",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "hang out",
+            "taskDescription": "with my girlfriend",
+            "startTime": "2024-09-18T15:17",
+            "endTime": "2024-09-18T12:17",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "hit the gym",
+            "taskDescription": "nothing",
+            "startTime": "2024-09-29T07:44",
+            "endTime": "2024-09-29T10:44",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "uhiuiuhuhi",
+            "taskDescription": "uuhuibiubbu",
+            "startTime": "2024-09-30T10:47",
+            "endTime": "2024-09-30T11:47",
+            "taskcolor": null
+        },
+        {
+            "userID": "628fecb264d2e97260acac7da9be7651fe85f64c85334e8026a30eeed7ee460d",
+            "taskName": "aisdfuosahdf",
+            "taskDescription": "asjfduaushfd",
+            "startTime": "08:49 AM",
+            "endTime": "10:49 AM",
+            "taskcolor": null
+        }
+    ],
+    "group": [],
+    "project": []
+}
