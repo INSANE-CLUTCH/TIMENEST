@@ -363,35 +363,44 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.classList.add('show');
     document.getElementById('createTaskForm').onsubmit();
   }
-
+  let currentTask = null;
   document.getElementById('createTaskForm').onsubmit = function (e) {
+    if (currentTask) {
+      currentTask.remove();
+      currentTask = null; // Xóa tham chiếu tới task hiện tại
+    }
     e.preventDefault();
     addTaskToCalendar();
     closeModal();
     document.getElementById('createTaskForm').reset();
   };
 
-  function addTaskToCalendar() {
-    const task = document.createElement('div');
-    task.classList.add('task');
 
+  function addTaskToCalendar() {
+    const task = document.createElement('button');
+    task.classList.add('task');
+  
     // Task Name
     const taskName = document.createElement('p');
     taskName.classList.add('taskName');
     taskName.textContent = document.getElementById('taskName').value;
-
+  
     // Task Description
     const taskDescript = document.createElement('p');
     taskDescript.classList.add('taskDescript');
     taskDescript.textContent = document.getElementById('taskDescription').value;
-
+  
     // Lấy thời gian bắt đầu và kết thúc
-    const startTimeValue = startTimeInput.value; // Giá trị thời gian bắt đầu (datetime)
-    const endTimeValue = endTimeInput.value; // Giá trị thời gian kết thúc (datetime)
 
+    const starttimeInput = startTimeInput;
+    const endtimeInput = endTimeInput;
+
+    const startTimeValue = starttimeInput.value;
+    const endTimeValue = endtimeInput.value;
+  
     const startTime = new Date(startTimeValue);
     const endTime = new Date(endTimeValue);
-
+  
     // Task Time
     const taskTime = document.createElement('p');
     taskTime.classList.add('taskTime');
@@ -402,17 +411,17 @@ document.addEventListener('DOMContentLoaded', function () {
       hour: '2-digit',
       minute: '2-digit',
     })}`;
-
+  
     // Create Delete Button
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('delete-button');
-
+  
     // Add event listener to delete the task
     deleteButton.onclick = function () {
       timeSlots.removeChild(task);
     };
-
+  
     // Append elements to the task
     task.appendChild(taskName);
     task.appendChild(taskDescript);
@@ -420,32 +429,30 @@ document.addEventListener('DOMContentLoaded', function () {
     task.appendChild(deleteButton);
     task.style.backgroundColor = document.getElementById('taskColor').value;
     const today = new Date();
+  
     // Tìm các phần tử time-slot tương ứng
-    const startDayIndex = startTime.getDate() - today.getDate() + 3; // Ngày trong tuần (0-6)
+    const startDayIndex = startTime.getDate() - today.getDate() + 3;
     const startHour = startTime.getHours();
     const startMinute = startTime.getMinutes();
     const startSlotIndex =
-      (startHour * 4 + startMinute / 15) * 7 + startDayIndex; // Tổng chỉ số time-slot
-
+      (startHour * 4 + startMinute / 15) * 7 + startDayIndex;
+  
     const endDayIndex = endTime.getDate() - today.getDate() + 3;
     const endHour = endTime.getHours();
     const endMinute = endTime.getMinutes();
-    const endSlotIndex = (endHour * 4 + endMinute / 15) * 7 + endDayIndex; // Tổng chỉ số time-slot
-    console.log(`StartTime: ${startDayIndex} - ${startHour} - ${startMinute}`);
-    console.log(`EndTime: ${endDayIndex} - ${endHour} - ${endMinute}`);
-    console.log(`hahaha ${startSlotIndex} - ${endSlotIndex}`);
+    const endSlotIndex = (endHour * 4 + endMinute / 15) * 7 + endDayIndex;
+  
     const timeSlot = document.querySelectorAll('.time-slot');
-
+  
     // Tìm các time-slot tương ứng
     const startSlotElement = timeSlot[startSlotIndex + 7];
     const endSlotElement = timeSlot[endSlotIndex + 7];
-
+  
     // Tính toán vị trí của task
     const startRect = startSlotElement.getBoundingClientRect();
     const endRect = endSlotElement.getBoundingClientRect();
     const timeSlotRect = timeSlot[0].getBoundingClientRect();
-    // Giả sử thời gian bắt đầu là phần tử đầu tiên
-
+  
     task.style.position = 'absolute';
     task.style.left = `${
       Math.min(startRect.left, endRect.left) - timeSlotRect.left
@@ -454,19 +461,38 @@ document.addEventListener('DOMContentLoaded', function () {
       Math.min(startRect.top, endRect.top) - timeSlotRect.top + 10
     }px`;
     task.style.width = `${
-      Math.max(startRect.right, endRect.right) -
-      Math.min(startRect.left, endRect.left)
+      Math.max(startRect.right, endRect.right) - Math.min(startRect.left, endRect.left)
     }px`;
     task.style.height = `${
-      Math.max(startRect.bottom, endRect.bottom) -
-      Math.min(startRect.top, endRect.top) -
-      20
+      Math.max(startRect.bottom, endRect.bottom) - Math.min(startRect.top, endRect.top) - 20
     }px`;
-
+  
     // Append the task to time slots
     timeSlots.appendChild(task);
+    task.addEventListener('click', function() {
+      // Lấy thông tin từ task đã bấm
+      const taskName = task.querySelector('.taskName').textContent;
+      const taskDescript = task.querySelector('.taskDescript').textContent;
+      const taskTime = task.querySelector('.taskTime').textContent.split(' - ');
+      console.log(`${startTimeValue} - ${endTimeValue}`);
+      // Điền thông tin vào form
+      document.getElementById('taskName').value = taskName;
+      document.getElementById('taskDescription').value = taskDescript;
+      document.getElementById('startTime').value = startTimeValue;
+      document.getElementById('endTime').value = endTimeValue;
+
+      // Hiển thị modal
+      modal.classList.add('show');
+
+      // Lưu lại tham chiếu tới task cũ để xóa sau khi submit
+      currentTask = task;
+    });
+
   }
 });
+
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
   // Get today's date

@@ -1,5 +1,17 @@
 import pymongo
-from constants.config import MONGODB_URL
+import json
+from bson import ObjectId
+
+
+
+MONGODB_URL = "mongodb+srv://khangptt:VPX3o59wR3Jm7E9X@timenest.9iv6pbq.mongodb.net/"
+
+class MongoJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        return super().default(obj)
+    
 class MongoManager:
     __instances = {}
 
@@ -118,10 +130,12 @@ class MongoManager:
     def find_notes_by_participant(self, participant_id):
         return self.find("note", {"Participants": participant_id})
     
-    def find_with_userid(self, userid):
+    def find_info(self, userid):
+        record = self.find_one(collection_name = "users", filter = {"userID": userid})
         list_of_information = {
-            "user": self.find(collection_name = "user", filter = {"UserID": userid}),
-            "tasks": self.find(collection_name = "tasks", filter = {"UserID": userid}),
-            "group": self.find(collection_name = "group", filter = {"Users": userid})
+            "username": record["UserName"],
+            "tasks": self.find(collection_name = "tasks", filter = {"userID": userid},projection={"_id": 0}),
+            "group": self.find(collection_name = "group", filter = {"userID": userid},projection={"_id": 0}),
+            "project": self.find(collection_name = "projects", filter = {"userID": userid},projection={"_id": 0})
         }
         return list_of_information
