@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="static/TIMENEST-05.svg" />
+        <link rel="icon" type="image/svg+xml" href="/static/TIMENEST-05.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,6 @@
             integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="/static/styles/style_main.css" />
-        <script src="script_main.js" defer></script>
         <title>Timenest</title>
     </head>
     <body>
@@ -122,8 +121,8 @@
                             <button class="btn-today"><p>Today</p></button>
                         </div>
                         <div class="day">
-                            <button><img src="/static/Expand_left.svg" style="width: 35px"></button>
-                            <button><img src="/static/Expand_right.svg" style="width: 32px"></button>
+                            <button class = 'Previous_day'><img src="/static/Expand_left.svg" style="width: 35px"></button>
+                            <button class = 'Next_day'><img src="/static/Expand_right.svg" style="width: 32px"></button>
                             <p>27.09.2024</p>
                         </div>
                         <div class="right">
@@ -188,125 +187,6 @@
                 </div>
             </div>
         </main>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const chatWindow = document.querySelector('.chat-window');
-                const inputField = document.querySelector('.input-area input');
-                const sendButton = document.querySelector('.input-area button');
-
-           
-                function addMessage(message, isUser = false) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = isUser ? 'user-message' : 'bot-message';
-                    messageDiv.innerHTML = `<p>${message}</p>`;
-                    chatWindow.appendChild(messageDiv);
-                    chatWindow.scrollTop = chatWindow.scrollHeight;
-                }
-            
-                function addTypingIndicator() {
-                    const typingDiv = document.createElement('div');
-                    typingDiv.className = 'bot-message typing-indicator';
-                    typingDiv.innerHTML = '<div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-                    chatWindow.appendChild(typingDiv);
-                    chatWindow.scrollTop = chatWindow.scrollHeight;
-                }
-            
-                function removeTypingIndicator() {
-                    const typingIndicator = document.querySelector('.typing-indicator');
-                    if (typingIndicator) {
-                        typingIndicator.remove();
-                    }
-                }
-            
- 
-                async function handleUserInput() {
-                    const userMessage = inputField.value.trim();
-                    if (userMessage) {
-                        addMessage(userMessage, true);
-                        inputField.value = '';
-            
-                        // Add typing indicator
-                        addTypingIndicator();
-            
-                        try {
-                            const response = await fetch('http://10.1.16.121:8034/infer', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ input: userMessage })
-                            });
-            
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-            
-                            const data = await response.json();
-                            
-                            // Remove typing indicator before adding the bot's response
-                            removeTypingIndicator();
-                            addMessage(data.response);
-                        } catch (error) {
-                            console.error('Error:', error);
-                            
-                            // Remove typing indicator before adding the error message
-                            removeTypingIndicator();
-                            addMessage('Sorry, there was an error processing your message.');
-                        }
-                    }
-                }
-            
-     
-            
-                sendButton.addEventListener('click', handleUserInput);
-            
-                inputField.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        handleUserInput();
-                    }
-                });
-            });
-
-            const tracker = document.querySelector('.tracker');
-            const progressBar = document.querySelector('.progress-bar');
-            const timePeriod = document.querySelector('.time-period');
-
-            // Sample data (you can replace this with real data)
-            const tasksData = {
-                week: 35,
-                month: 120,
-                total: 200
-            };
-
-            // Set initial progress
-            const progress = (tasksData.month / tasksData.total) * 100;
-            progressBar.style.width = `${progress}%`;
-
-            let isShowingWeek = true;
-            function updateProgressInfo() {
-                if (isShowingWeek) {
-                    timePeriod.textContent = `Week (${tasksData.week})`;
-                } else {
-                    timePeriod.textContent = `Month (${tasksData.month})`;
-                }
-                isShowingWeek = !isShowingWeek;
-            }
-
-            tracker.addEventListener('mouseenter', () => {
-                updateProgressInfo();
-            });
-
-            tracker.addEventListener('mouseover', () => {
-                if (!timePeriod.style.opacity || timePeriod.style.opacity === '0') {
-                    updateProgressInfo();
-                }
-            });
-
-            setInterval(() => {
-                if (tracker.matches(':hover')) {
-                    updateProgressInfo();
-                }
-            }, 2000); // Switch between week and month data every 2 seconds while hovering
-        </script>
+        <script src="/static/js/script_main.js" defer></script>
     </body>
 </html>
