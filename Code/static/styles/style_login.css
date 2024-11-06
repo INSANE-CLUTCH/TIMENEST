@@ -301,3 +301,28 @@ body{
     color:black;
     text-align: center;
 }
+.google-sign-in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* background-color: #6200ee; Purple background as in the image */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.google-sign-in:hover {
+    /* background-color: #5000d1; Slightly darker on hover */
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px; /* Space between text and icon */
+}
+

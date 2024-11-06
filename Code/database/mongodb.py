@@ -1,5 +1,14 @@
 import pymongo
-MONGODB_URL = "mongodb+srv://khangptt:VPX3o59wR3Jm7E9X@timenest.9iv6pbq.mongodb.net/"
+import json
+from bson import ObjectId
+from config.config_env import MONGODB_URL
+
+class MongoJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        return super().default(obj)
+    
 class MongoManager:
     __instances = {}
 
@@ -117,3 +126,13 @@ class MongoManager:
     # Finds notes that involve a specified participant
     def find_notes_by_participant(self, participant_id):
         return self.find("note", {"Participants": participant_id})
+    
+    def find_info(self, userid):
+        record = self.find_one(collection_name = "users", filter = {"userID": userid})
+        list_of_information = {
+            "username": record["UserName"],
+            "tasks": self.find(collection_name = "tasks", filter = {"userID": userid},projection={"_id": 0}),
+            "group": self.find(collection_name = "group", filter = {"userID": userid},projection={"_id": 0}),
+            "project": self.find(collection_name = "projects", filter = {"userID": userid},projection={"_id": 0})
+        }
+        return list_of_information

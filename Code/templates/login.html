@@ -12,6 +12,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/static/styles/style_login.css" />
   <title>Timenest: Login Page</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 </head>
 
 <body>
@@ -33,7 +35,12 @@
                 <input type="password" id="loginPassword" name="password" placeholder="Password" required>
                 <a href="#">Forget Your Password?</a>
                 <button type="submit">Log In</button>
-                <p id="loginResponse"></p>
+                <a>Or</a>
+                <div id="g_id_onload"
+                    data-client_id="599747444234-m3rl7f6gmh7k2dikk2uhaka06g05113k.apps.googleusercontent.com"
+                    data-callback="handleCredentialResponse">
+                </div>
+                <div class="g_id_signin" data-type="standard"></div>
             </form>
         </div>
         <div class="toggle-container">
@@ -89,20 +96,26 @@
             });
 
             const result = await response.json();
-            document.getElementById("loginResponse").textContent = result.message || result.error;
+
             // if (response.status === 201) {
             //     alert(data.message); // Display success message in a pop-up
             // } else {
             //     alert(data.error); // Display error message in a pop-up
             // }
-            if (response.ok) {
-                window.location.href = "http://localhost:5004";
+            if (response.ok && result.userID) {
+                console.log(3)
+                // const url = `http://localhost:5004?username=${encodeURIComponent(username)}&record=${encodeURIComponent(result.userID)}`;
+                const url = `/calendar?username=${encodeURIComponent(username)}&record=${encodeURIComponent(result.userID)}`;
+                // const url = 'main.html';
+                console.log(url);
+                window.location.href = url;
             }
         });
         
-        const container = document.getElementById('container');
+        const container = document.getElementById('container'); 
         const registerBtn = document.getElementById('register');
         const loginBtn = document.getElementById('login');
+        const ggauthenBtn = document.getElementById('googleSignIn');
 
         registerBtn.addEventListener('click', () => {
             container.classList.add("active");
@@ -111,6 +124,35 @@
         loginBtn.addEventListener('click', () => {
             container.classList.remove("active");
         });
+        ggauthenBtn.addEventListener('click',() => {
+            alert('Function is finishing...');
+        })
+    </script>
+    <script>
+        function handleCredentialResponse(response) {
+            fetch('/callback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({id_token: response.credential})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                if (data.status === 'success') {
+                    // Redirect to calendar page
+                    const url = `/calendar?username=${encodeURIComponent(data.name)}&record=${encodeURIComponent(data.user_id)}`;
+                    window.location.href = url;
+                } else {
+                    alert('Authentication failed: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Authentication failed.');
+            });
+        }
     </script>
 </body>
 </html>
