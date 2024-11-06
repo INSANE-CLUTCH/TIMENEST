@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/static/TIMENEST-05.svg" />
+        <link rel="icon" type="image/svg+xml" href="../static/TIMENEST-05.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,30 +10,32 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
             integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="/static/styles/style_main.css" />
+        <link rel="stylesheet" href="../static/styles/style_main.css" />
         <title>Timenest</title>
     </head>
     <body>
         <div class="h__container">
             <div class="h-col-1">
-                <img id="logo" src="/static/TIMENEST-05 1 Black.svg" alt="timenest" style="height: 34px;">
+                <img id="logo" src="../static/TIMENEST-05 1 Black.svg" alt="timenest" style="height: 34px;">
                 <button class="menu" data-tooltip="Main menu" aria-label="button" role="button">
-                    <img src="/static/Vector.svg" alt="menu button" style="height: 22px">
+                    <img src="../static/Vector.svg" alt="menu button" style="height: 22px">
                 </button>
             </div>
             <div class="group-right">
                 <div class="undo-redo">
                     <button class="undo" data-tooltip="Undo" aria-label="button" role="button">
-                        <img src="/static/Undo.svg" alt="undo button" style="height: 20px">
+                        <img src="../static/Undo.svg" alt="undo button" style="height: 20px">
                     </button>
                     <button class="redo" data-tooltip="Undo" aria-label="button" role="button">
-                        <img src="/static/Redo.svg" alt="redo button" style="height: 20px">
+                        <img src="../static/Redo.svg" alt="redo button" style="height: 20px">
                     </button>
                 </div>
-                <button class="switch" data-tooltip="Undo" aria-label="button" role="button">
-                    <img src="/static/Horizontal_switch.svg" alt="switch button" style="height: 30px">
-                </button>
                 <p id="workspace-display">Anh Tuan's workspace</p>
+                <div>
+                    <button class="logout" data-tooltip="Undo" aria-label="button" role="button">
+                        <img src="../static/log-out-outline.svg" alt="logout button" style="height: 32px">
+                    </button>
+                </div>
             </div>
         </div>
         <main class="main">
@@ -41,13 +43,13 @@
                 <div class="sidebar-content__wrapper1">
                     <div class="short-cut1">
                         <button class="sc-1" aria-label="button" role="button">
-                            <img src="/static/fi-ss-envelope.svg" alt="envelope">
+                            <img src="../static/fi-ss-envelope.svg" alt="envelope">
                         </button>
                         <button class="sc-1" aria-label="button" role="button">
-                            <img src="/static/fi-ss-shopping-bag.svg" alt="shopping">
+                            <img src="../static/fi-ss-shopping-bag.svg" alt="shopping">
                         </button>
                         <button class="sc-1" aria-label="button" role="button">
-                            <img src="/static/fi-ss-basketball.svg" alt="basketball">
+                            <img src="../static/fi-ss-basketball.svg" alt="basketball">
                         </button>
                     </div>  
                     
@@ -59,7 +61,7 @@
                 
                     <div class="div-create">
                         <button class="create" id="createBtn" aria-label="button" role="button">
-                            <img src="/static/fi-ss-add.svg" alt="plus" style="width: 55px">
+                            <img src="../static/fi-ss-add.svg" alt="plus" style="width: 55px">
                             <div class="create-text">Create
                             </div>
                         </button>
@@ -106,7 +108,7 @@
                         </div>
                         <div class="input-area">
                             <input type="text" placeholder="Type a message..." required>
-                            <button class="send"><img src="/static/Arrow 1.svg"></button>
+                            <button class="send"><img src="../static/Arrow 1.svg"></button>
                         </div>
                     </div>
                     
@@ -121,17 +123,17 @@
                             <button class="btn-today"><p>Today</p></button>
                         </div>
                         <div class="day">
-                            <button class = 'Previous_day'><img src="/static/Expand_left.svg" style="width: 35px"></button>
-                            <button class = 'Next_day'><img src="/static/Expand_right.svg" style="width: 32px"></button>
+                            <button class = 'Previous_day'><img src="../static/Expand_left.svg" style="width: 35px"></button>
+                            <button class = 'Next_day'><img src="../static/Expand_right.svg" style="width: 32px"></button>
                             <p>27.09.2024</p>
                         </div>
                         <div class="right">
                             <div class="view">
                                 <p>Week</p>
-                                <button><img src="/static/fi-ss-caret-down.svg"></button>
+                                <button><img src="../static/fi-ss-caret-down.svg"></button>
                             </div>
                             <div class="search">
-                                <button class="s"><img src="/static/Date_range.svg" style="width: 45px"></button>
+                                <button class="s"><img src="../static/Date_range.svg" style="width: 45px"></button>
                             </div>
                         </div>
                     </div>
@@ -176,17 +178,18 @@
                 </div>
                 <div class="bottom">
                     <div class="option 1">
-                        <button class="bttn-option 1"><img src="/static/Add_round.svg"></button>
+                        <button class="bttn-option 1"><img src="../static/Add_round.svg"></button>
                     </div>
                     <div class="option 2">
-                        <button class="bttn-option 2"><img src="/static/Group_fill.svg"></button>
+                        <button class="bttn-option 2"><img src="../static/Group_fill.svg"></button>
                     </div>
                     <div class="option 3">
-                        <button class="bttn-option 3"><img src="/static/Setting_alt_fill.svg"></button>
+                        <button class="bttn-option 3"><img src="../static/Setting_alt_fill.svg"></button>
                     </div>
                 </div>
             </div>
         </main>
-        <script src="/static/js/script_main.js" defer></script>
+        <script src="../static/js/script_main.js" defer></script>
+        <script src="../static/js/script_chatbot.js" defer></script>
     </body>
 </html>

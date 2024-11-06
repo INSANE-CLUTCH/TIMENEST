@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="static/TIMENEST-05.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../static/styles/style_main/style_main.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+    <script>
+      const userID = '{{userID}}'; // This assumes the userID is passed from the Python script
+      const username = '{{username}}';
+      // const evtSource = new EventSource("/stream");
+    </script>
+
+    <title>Timenest</title>
+  </head>
+  <body>
+    <div class="h__container">
+      <div class="h-col-1">
+        <img
+          id="logo"
+          src="../static/TIMENEST-05 1 Black.svg"
+          alt="timenest"
+          style="height: 34px"
+        />
+        <button
+          class="menu"
+          data-tooltip="Main menu"
+          aria-label="button"
+          role="button"
+        >
+          <img
+            src="../static/Vector.svg"
+            alt="menu button"
+            style="height: 22px"
+          />
+        </button>
+        <img
+          id="beta"
+          src="../static/Colored Beta.svg"
+          alt="timenest"
+          style="height: 34px"
+        />
+        <!-- <div class="beta-button">
+                  <div class="beta-text">BETA</div>
+                </div> -->
+      </div>
+      <div class="group-right">
+        <div class="undo-redo">
+          <button
+            class="undo"
+            data-tooltip="Undo"
+            aria-label="button"
+            role="button"
+          >
+            <img
+              src="../static/Undo.svg"
+              alt="undo button"
+              style="height: 20px"
+            />
+          </button>
+          <button
+            class="redo"
+            data-tooltip="Undo"
+            aria-label="button"
+            role="button"
+          >
+            <img
+              src="../static/Redo.svg"
+              alt="redo button"
+              style="height: 20px"
+            />
+          </button>
+        </div>
+        <p id="workspace-display">{{username}}'s workspace</p>
+        <div>
+          <button
+            class="logout"
+            id="logoutBtn"
+            data-tooltip="Undo"
+            aria-label="button"
+            role="button"
+          >
+            <img
+              src="../static/log-out-outline.svg"
+              alt="logout button"
+              style="height: 32px"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <main class="main">
+      <div class="sidebar">
+        <div class="sidebar-content__wrapper1">
+          <div class="short-cut1">
+            <button class="sc-1" aria-label="button" role="button">
+              <img src="../static/fi-ss-envelope.svg" alt="envelope" />
+            </button>
+            <button class="sc-1" aria-label="button" role="button">
+              <img src="../static/fi-ss-shopping-bag.svg" alt="shopping" />
+            </button>
+            <button class="sc-1" aria-label="button" role="button">
+              <img src="../static/fi-ss-basketball.svg" alt="basketball" />
+            </button>
+          </div>
+
+          <div class="div-manage">
+            <button class="manage" aria-label="button" role="button">
+              <p>Manage</p>
+            </button>
+          </div>
+
+          <div class="div-create">
+            <button
+              class="create"
+              id="createBtn"
+              aria-label="button"
+              role="button"
+            >
+              <img
+                src="../static/fi-ss-add.svg"
+                alt="plus"
+                style="width: 55px"
+              />
+              <div class="create-text">Create</div>
+            </button>
+          </div>
+
+          <div id="createTaskModal" class="createTaskModal">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <h2>Create New Task</h2>
+              <form id="createTaskForm">
+                Task Name: <input type="text" id="taskName" /><br />
+                Description: <textarea id="taskDescription"></textarea><br />
+                Start Time:
+                <input type="datetime-local" id="startTime" step="900" /><br />
+                End Time: <input type="datetime-local" id="endTime" /><br />
+                Task Color:
+                <input type="color" id="taskColor" value="#0000FF" /><br />
+                <button type="submit">Create Task</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="tracker">
+            <div class="progress-container">
+              <span class="time-period"></span>
+              <div class="progress-bar"></div>
+            </div>
+          </div>
+          <div class="chatbot">
+            <div class="header">
+              <h1>Clutch AI</h1>
+            </div>
+            <div class="chat-window">
+              <div class="bot-message">
+                <p>Hi {{username}}! How can I help you today?</p>
+              </div>
+            </div>
+            <div class="input-area">
+              <input type="text" placeholder="Type a message..." required />
+              <button class="send"><img src="../static/Arrow 1.svg" /></button>
+            </div>
+          </div>
+          <!-- Move this script to the end of the body -->
+        </div>
+      </div>
+      <!-- Khung hiển thị thông tin -->
+      <div id="taskInfo" class="task-info">
+        <div class="task-content">
+          <button id="closeButton" class="close-btn">x</button>
+          <button id="editButton" class="edit-btn">✎</button>
+          <button id="deleteButton" class="delete-btn">🗑️</button>
+          <h3 id="displayTaskName"></h3>
+          <p>
+            <strong>Description:</strong>
+            <span id="displayTaskDescription"></span>
+          </p>
+          <p><strong>From:</strong> <span id="displayFromDate"></span></p>
+          <p><strong>To:</strong> <span id="displayToDate"></span></p>
+          <p><strong>Duration:</strong> <span id="displayDuration"></span></p>
+          <p>
+            <strong>Status:</strong>
+            <select id="statusSelect">
+              <option value="In progress">In progress</option>
+              <option value="Pass due">Pass due</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </p>
+        </div>
+      </div>
+
+      <div class="right-component">
+        <div class="calendar-zone">
+          <div class="calendar-zone-top">
+            <div class="today">
+              <button class="btn-today"><p>Today</p></button>
+            </div>
+            <div class="day">
+              <button class="Previous_day" onclick="previousWeek()">
+                <img src="../static/Expand_left.svg" style="width: 35px" />
+              </button>
+              <button class="Next_day" onclick="nextWeek()">
+                <img src="../static/Expand_right.svg" style="width: 32px" />
+              </button>
+              <p>27.09.2024</p>
+            </div>
+            <div class="right">
+              <div class="view">
+                <button class="change-view">
+                  <span class="view-text">Week</span>
+                  <img src="../static/fi-ss-caret-down.svg" />
+                </button>
+                <div class="dropdown-menu">
+                  <button id="change-day" class="menu-option">Day</button>
+                  <button id="change-week" class="menu-option">Week</button>
+                  <button id="change-month" class="menu-option">Month</button>
+                </div>
+              </div>
+
+              <div class="search">
+                <button class="s">
+                  <img src="../static/Date_range.svg" style="width: 45px" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calendar view -->
+          <div id = 'calendar-container'></div>
+        </div>
+
+        <div class="bottom">
+          <div class="option 1">
+            <button class="bttn-option 1">
+              <img src="../static/Add_round.svg" />
+            </button>
+          </div>
+          <div class="option 2">
+            <button class="bttn-option 2">
+              <img src="../static/Group_fill.svg" />
+            </button>
+          </div>
+          <div class="option 3">
+            <button class="bttn-option 3">
+              <img src="../static/Setting_alt_fill.svg" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      const socket = io();
+      socket.on('connect', () => {
+        console.log('Connected to server');
+      });
+      socket.on('new_data', (taskData) => {
+        console.log('WENT HEREEE');
+        console.log('taskData HEREEE', taskData);
+        addTaskToCalendarFromDB(taskData);
+      });
+    </script>
+    <script src="../static/js/utils.js" defer></script>
+    <script src="../static/js/api.js" defer></script>
+    <script src="../static/js/week_view.js" defer></script>
+    <script src="../static/js/week_task.js" defer></script>
+    <script src="../static/js/month_view.js" defer></script>
+    <script src="../static/js/modal.js" defer></script>
+    <script src="../static/js/chatbot.js" defer></script>
+    <script src="../static/js/progressTracker.js" defer></script>
+    <script src="../static/js/functionality.js" defer></script>
+    <script src="../static/js/main.js" defer></script>
+  </body>
+</html>

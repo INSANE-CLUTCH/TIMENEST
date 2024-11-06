@@ -170,17 +170,6 @@
         }
     });
 
-    // Ensure correct background color is set when the page is loaded or refreshed
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.pageYOffset === 0) {
-            navbar.style.backgroundColor = 'transparent';
-            navbar.style.boxShadow = 'none';
-        } else {
-            navbar.style.backgroundColor = '#3148e6';
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        }
-    });
-
     const scrollers = document.querySelectorAll(".scroller");
 
     // If a user hasn't opted in for recuded motion, then we add the animation

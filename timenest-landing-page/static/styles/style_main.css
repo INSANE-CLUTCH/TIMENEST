@@ -894,3 +894,21 @@ button {
   /* You can also add other styles if needed */
   font-size: 16px; /* Optional: Adjust the font size */
 }
+
+.logout {
+  background-color: transparent;
+  border: none;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  padding: 0.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+#workspace-display {
+  margin-right: 8.5rem;
+}
